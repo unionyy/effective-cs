@@ -43,8 +43,8 @@ namespace Program
         public static void Item6_Nameof()
         {
             var a = nameof(Item5_FormattableString);
-            var id = nameof(System.IO);
-            var c = nameof(List<List<int>>);
+            //var id = nameof(System.IO);
+            //var c = nameof(List<List<int>>);
             Console.WriteLine(nameof(a));
             Console.WriteLine(nameof(Item6_Nameof));
         }
@@ -93,9 +93,19 @@ namespace Program
 
             Deltest(1, myDel2);
         }
+        public static void Item8_Event() {
+            EventSource es = new();
+            EventHandler<int> eh = (_, num) => {Console.WriteLine(num);};
+            es.AddEvent(eh);
+            es.RaiseUpdates();
+            es.RemoveEvent(eh);
+            es.RaiseUpdates();
+
+        }
         public static void Main(String[] args)
         {
-            Item7_Delegate();
+            //Item7_Delegate();
+            Item8_Event();
         }
     }
 }
