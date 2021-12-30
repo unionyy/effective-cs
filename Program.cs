@@ -93,18 +93,25 @@ namespace Program
 
             Deltest(1, myDel2);
         }
-        public static void Item8_Event() {
+        public static async void Item8_Event() {
+            var tasks = new Task[100];
             EventSource es = new();
             EventHandler<int> eh = (_, num) => {Console.WriteLine(num);};
+            for(int i = 0; i < 100; i++) {
+                //tasks[i] = Task.Run(() => {es.RaiseUpdates();});
+                tasks[i] = Task.Run(() => Console.Write("1"));
+            }
             es.AddEvent(eh);
-            es.RaiseUpdates();
             es.RemoveEvent(eh);
-            es.RaiseUpdates();
+            //es.RaiseUpdates();
+            await Task.WhenAll(tasks);
+            return;
 
         }
         public static void Main(String[] args)
         {
             //Item7_Delegate();
+            //Chapter2.item12_memberInit();
             Item8_Event();
         }
     }

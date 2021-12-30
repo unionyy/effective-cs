@@ -7,6 +7,7 @@ public class EventSource
     public void RaiseUpdates()
     {
         counter++;
+        Console.Write('!');
         Updated(this, counter);
     }
 
