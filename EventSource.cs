@@ -7,8 +7,16 @@ public class EventSource
     public void RaiseUpdates()
     {
         counter++;
+        //Updated?.Invoke(this, counter);
+        if(Updated != null){
+
+            Console.Write('~');
+            Updated(this, counter);
+
+        }
+
         Console.Write('!');
-        Updated(this, counter);
+
     }
 
     public void AddEvent(EventHandler<int> myEvent)
