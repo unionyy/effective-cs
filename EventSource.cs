@@ -3,17 +3,21 @@ using System;
 public class EventSource
 {
     private EventHandler<int> Updated;
+    private readonly object updatedLock = new object();
 
     public void RaiseUpdates()
     {
         counter++;
         //Updated?.Invoke(this, counter);
-        if(Updated != null){
+        lock(updatedLock) {
+            if(Updated != null){
 
-            Console.Write('~');
-            Updated(this, counter);
+                Console.Write('~');
+                Updated(this, counter);
 
+            }
         }
+        
 
         Console.Write('!');
 
@@ -26,7 +30,9 @@ public class EventSource
 
     public void RemoveEvent(EventHandler<int> myEvent)
     {
-        Updated -= myEvent;
+        lock(updatedLock) {
+            Updated -= myEvent;
+        }
     }
 
     private int counter;
