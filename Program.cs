@@ -109,11 +109,11 @@ namespace Program
             return;
 
         }
-        public static async Task Main(String[] args)
+        public static void Main(String[] args)
         {
             //Item7_Delegate();
             //Chapter2.item12_memberInit();
-            await Item8_Event();
+            Chapter2.item14_constructor();
         }
     }
 }

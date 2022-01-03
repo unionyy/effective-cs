@@ -12,4 +12,9 @@ public class Chapter2
         Chapter2 c2 = new();
         Console.WriteLine(c2.myStruct.a);
     }
+
+    public static void item14_constructor() {
+        Item14_2 item14 = new(2, "hi");
+        Console.Write(item14.name);
+    }
 }
