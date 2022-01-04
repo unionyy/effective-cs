@@ -1,16 +1,23 @@
 using System;
+using System.Threading.Tasks;
 
-public class EventSource
+public class EventSourceScheduler
 {
     private EventHandler<int> Updated;
-    private readonly object updatedLock = new object();
+
+    private Task task;
+
+    public EventSourceScheduler()
+    {
+        task = Task.Run(()=>{});
+    }
 
     public void RaiseUpdates()
     {
-        counter++;
-        //Updated?.Invoke(this, counter);
-        lock (updatedLock)
+        task.ContinueWith(delegate
         {
+            counter++;
+            //Updated?.Invoke(this, counter);
             if (Updated != null)
             {
 
@@ -18,27 +25,25 @@ public class EventSource
                 Updated(this, counter);
 
             }
-        }
 
-
-        Console.WriteLine('!');
-
+            Console.WriteLine('!');
+        });
     }
 
     public void AddEvent(EventHandler<int> myEvent)
     {
-        lock (updatedLock)
+        task.ContinueWith(delegate
         {
             Updated += myEvent;
-        }
+        });
     }
 
     public void RemoveEvent(EventHandler<int> myEvent)
     {
-        lock (updatedLock)
+        task.ContinueWith(delegate
         {
             Updated -= myEvent;
-        }
+        });
     }
 
     private int counter;

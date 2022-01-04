@@ -94,12 +94,13 @@ namespace Program
             Deltest(1, myDel2);
         }
         public static async Task Item8_Event() {
-            var tasks = new Task[1000];
-            EventSource es = new();
-            EventHandler<int> eh = (_, num) => {Console.WriteLine(num);};
+            var tasks = new Task[100];
+            EventSourceScheduler es = new();
+            //EventSource es = new();
+            EventHandler<int> eh = (_, num) => {Console.Write(num);};
             
             es.AddEvent(eh);
-            for(int i = 0; i < 1000; i++) {
+            for(int i = 0; i < 100; i++) {
                 tasks[i] = Task.Run(() => {es.RaiseUpdates();});
                 //tasks[i] = Task.Run(() => Console.Write("1"));
             }
@@ -107,13 +108,13 @@ namespace Program
             //es.RaiseUpdates();
             await Task.WhenAll(tasks);
             return;
-
         }
-        public static void Main(String[] args)
+        public static async Task Main(String[] args)
         {
             //Item7_Delegate();
             //Chapter2.item12_memberInit();
-            Chapter2.item14_constructor();
+            //Chapter2.item14_constructor();
+            await Item8_Event();
         }
     }
 }
