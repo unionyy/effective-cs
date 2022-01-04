@@ -7,10 +7,10 @@ public class EventSource
 
     public void RaiseUpdates()
     {
-        counter++;
         //Updated?.Invoke(this, counter);
         lock (updatedLock)
         {
+            counter++;
             if (Updated != null)
             {
 
@@ -18,10 +18,8 @@ public class EventSource
                 Updated(this, counter);
 
             }
+            Console.WriteLine('!');
         }
-
-
-        Console.WriteLine('!');
 
     }
 
