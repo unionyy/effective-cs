@@ -99,11 +99,18 @@ namespace Program
             //EventSource es = new();
             EventHandler<int> eh = (_, num) => {Console.Write(num);};
             
+            int a, b;
+            ThreadPool.GetMinThreads(out a, out b);
+
+            Console.WriteLine(a);
+            Console.WriteLine(b);
             es.AddEvent(eh);
             for(int i = 0; i < 100; i++) {
+                Thread.Sleep(10);
                 tasks[i] = Task.Run(() => {es.RaiseUpdates();});
                 //tasks[i] = Task.Run(() => Console.Write("1"));
             }
+            Console.Write("@@");
             es.RemoveEvent(eh);
             //es.RaiseUpdates();
             await Task.WhenAll(tasks);

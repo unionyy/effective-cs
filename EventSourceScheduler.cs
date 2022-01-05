@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 public class EventSourceScheduler
 {
@@ -9,13 +10,15 @@ public class EventSourceScheduler
 
     public EventSourceScheduler()
     {
-        task = Task.Run(()=>{});
+        task = Task.Run(()=>{Thread.Sleep(100);});
     }
 
     public void RaiseUpdates()
     {
-        task.ContinueWith(delegate
+        task.ContinueWith(async delegate
         {
+            Console.Write("1");
+            await Task.Run(() => {Thread.Sleep(1000);});
             counter++;
             //Updated?.Invoke(this, counter);
             if (Updated != null)
@@ -27,6 +30,8 @@ public class EventSourceScheduler
             }
 
             Console.WriteLine('!');
+
+            return;
         });
     }
 
