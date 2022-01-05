@@ -123,7 +123,7 @@ namespace Program
 
         public static void Main(String[] args)
         {
-            var d = new Derived("Constructed in main");
+            var d = new Derived2("Constructed in main");
         }
     }
 }
