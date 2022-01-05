@@ -109,12 +109,14 @@ namespace Program
             await Task.WhenAll(tasks);
             return;
         }
-        public static async Task Main(String[] args)
+        // public static async Task Main(String[] args)
+        // {
+        //     await Item8_Event();
+        // }
+
+        public static void Main(String[] args)
         {
-            //Item7_Delegate();
-            //Chapter2.item12_memberInit();
-            //Chapter2.item14_constructor();
-            await Item8_Event();
+            var d = new Derived("Constructed in main");
         }
     }
 }
