@@ -121,9 +121,20 @@ namespace Program
         //     await Item8_Event();
         // }
 
+        public static void ClosureTest()
+        {
+            int a = 1;
+            Action<int> b = delegate(int num) {
+                Console.WriteLine(a);
+            };
+            a += 1;
+            b(a);
+            a += 2;
+        }
+
         public static void Main(String[] args)
         {
-            var d = new Derived("Constructed in main");
+            ClosureTest();
         }
     }
 }
